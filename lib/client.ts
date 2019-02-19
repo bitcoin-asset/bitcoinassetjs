@@ -232,7 +232,7 @@ export class Client {
         });
     }
 
-    async find(txid: string, validate: false): Promise<GetResponse> {
+    async find(txid: string, validate: boolean = false): Promise<GetResponse> {
         return await this.getAssetMintedVersion(txid).then((getResponse: any) => {
             if (!getResponse) {
                 return {

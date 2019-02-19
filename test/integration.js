@@ -2,7 +2,7 @@
 var expect = require('chai').expect;
 var index = require('../dist/index.js');
 
-const privateKey = 'wifkeyhere';
+const privateKey = 'your key';
 
 describe('integration test test', () => {
 
@@ -18,9 +18,7 @@ describe('integration test test', () => {
         // console.log('integration_test: starting');
         var createRequest = {
             asset: {
-                dataUrl: 'data',
-                metadataUrl: 'metadata',
-                immutableUrl: 'immutable',
+                dataUrl: 'b://2e6e7d0be54925cd0a841d3f514308a1b02ed79242bb1c040350d07f563f0ca7',
                 updateAddress: '1EXhSbGFiEAZCE5eeBvUxT6cBVHhrpPWXz'
             },
             pay: {
@@ -30,8 +28,8 @@ describe('integration test test', () => {
         var result = await index.getClient().create(createRequest);
         expect(result.success).to.equal(true);
         expect(result.data.txid).to.not.be.null;
+        console.log('created asset', result);
         // console.log('integration_test: asset created', result);
-
         await sleep(4000);
 
         var found = await index.getClient().find(result.data.txid);
@@ -43,7 +41,7 @@ describe('integration test test', () => {
             txid: found.data.txid,
             update: Object.assign({}, found.data.assetDataCurrent,
                 {
-                    metadataSchemaUrl: 'metadataSchemaUrl'
+                    dataUrl: 'b://df356acebad6642bf7859d2de48eb3d6e3917d9cd360dcb8eea02ca7d7602206'
                 }
             ),
             pay: {
