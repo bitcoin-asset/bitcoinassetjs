@@ -1,23 +1,24 @@
 {
   "name": "bitcoinassetjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "prepare" : "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BitcoinFiles/bitcoinassetjs.git"
+    "url": "git+https://github.com/bitcoin-asset/bitcoinassetjs.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/BitcoinFiles/bitcoinassetjs/issues"
+    "url": "https://github.com/bitcoin-asset/bitcoinassetjs/issues"
   },
-  "homepage": "https://github.com/BitcoinFiles/bitcoinassetjs#readme",
+  "homepage": "https://github.com/bitcoin-asset/bitcoinassetjs#readme",
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
