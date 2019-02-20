@@ -7,6 +7,8 @@ v1.0
 
 NOTE: This is beta and we need your help to define the spec for 'Ownership Transfers'.
 
+## Use Cases
+
 ##### Art and Content Ownership
 Create unique art, ebooks, media and more.  Be able to transfer ownership of limited edition items to other users.
 
