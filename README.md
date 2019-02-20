@@ -1,33 +1,32 @@
-# BitcoinAssetJS
+# bitcoinasset:// Protocol
+v1.0
+> Create and manage (non-fungible) digital assets on the Bitcoin blockchain.
 
-A Node.js module for creating, updating and tranferring Bitcoin Assets (SV)
+Bitcom Prefix: `1CLcHRfBvtMVB2VNFjNXq7VfamY9FXfw7K`
+Protocol Spec: https://github.com/bitcoin-asset/bitcoinassetjs
 
-## Installation
+NOTE: This is beta and we need your help to define the spec for 'Ownership Transfers'.
+
+## Usage and Examples
+
+**Installation**
 ```sh
 npm install bitcoinassetjs --save
 yarn add bitcoinassetjs
 bower install bitcoinassetjs --save
 ```
-## Usage
 
-### Javascript
-
+**Include**
 ```javascript
 // Include the library
 var bitcoinassetjs = require('bitcoinassetjs');
 ```
 
-##### Create Asset*:
+##### Create Asset:
 
 _Simple Example_
 
 Create minimal viable asset.
-
-dataUrl: Data source. Allowed URLs: http://, https://, b://. Recommended to use b://.
-
-updateAddress: The address that is allowed to update the data
-
-pay.key: The private key you wish to create the asset for
 
 ```javascript
 bitcoinassetjs.getClient().create({
@@ -45,16 +44,6 @@ _Advanced Example_
 
 Use JSON schema to define the type of data and how to validate it.
 
-dataUrl: Data source. Allowed URLs: http://, https://, b://. Recommended to use b://.
-
-dataSchemaType: Supported types: 'http://json-schema.org/draft-07/schema#' (You can implement your own custom types like XML-Schema or anything)
-
-dataSchemaUrl: Data schema definition source. Allowed URLs: http://, https://, b://. Recommended to use b://.
-
-updateAddress: The address that is allowed to update the data
-
-pay.key: The private key you wish to create the asset for
-
 ```javascript
 bitcoinassetjs.getClient().create({
     asset: {
@@ -69,64 +58,10 @@ bitcoinassetjs.getClient().create({
 });
 ```
 
-_Comprehensive Example_
-
-Use JSON schema to define the type of data and how to validate it.
-
-dataUrl: Data source. Allowed URLs: http://, https://, b://. Recommended to use b://.
-
-dataSchemaType: Supported types: 'http://json-schema.org/draft-07/schema#' (You can implement your own custom types like XML-Schema or anything)
-
-dataSchemaUrl: Data schema definition source. Allowed URLs: http://, https://, b://. Recommended to use b://.
-
-Extra metadata fields:
-
-metadataUrl: Data source. Allowed URLs: http://, https://, b://. Recommended to use b://.
-
-metadataSchemaType: Supported types: 'http://json-schema.org/draft-07/schema#' (You can implement your own custom types like XML-Schema or anything)
-
-metadataSchemaUrl: Data schema definition source. Allowed URLs: http://, https://, b://. Recommended to use b://.
-
-Immutabale fields (set only on creation, can never be changed):
-
-immutableUrl: Data source. Allowed URLs: http://, https://, b://. Recommended to use b://.
-
-immutableSchemaType: Supported types: 'http://json-schema.org/draft-07/schema#' (You can implement your own custom types like XML-Schema or anything)
-
-immutableSchemaUrl: Data schema definition source. Allowed URLs: http://, https://, b://. Recommended to use b://.
-
-updateAddress: The address that is allowed to update the data
-
-pay.key: The private key you wish to create the asset for
-
-```javascript
-bitcoinassetjs.getClient().create({
-    asset: {
-      dataUrl: 'b://3150276948348c428d2f86596953d503a4e8508b2238201a3b7e281b180d7c4c',
-      dataSchemaType: 'http://json-schema.org/draft-07/schema#',
-      dataSchemaUrl: 'b://3150276948348c428d2f86596953d503a4e8508b2238201a3b7e281b180d7c4c#some-namespace/schema/some-object-type/draft-01',
-      metadataUrl: undefined,
-      metadataSchemaUrl: undefined,
-      metadataSchemaType: undefined,
-      immutableUrl: undefined,
-      immutableSchemaUrl: undefined,
-      immutableSchemaType: undefined,
-      updateAddress: '1EXhSbGFiEAZCE5eeBvUxT6cBVHhrpPWXz'
-    },
-    pay: {
-        key: 'your private key'
-    }
-});
-```
-
 #### Find Asset
 
-Find an asset. Optionally validate the JSON schema. Only `http://json-schema.org/draft-07/schema#` is supported for now.
-On validation failure an Error exception is thrown. If either the dataUrl or the dataSchemaUrl are invalid or not present, then validation is silently skipped and the request will succeed as if validation was not performed.
-
 ```javascript
-
-// First find and retrieve the asset and validate (2nd argument = true)
+// First find and retrieve the asset and validate with JSON Schema (2nd argument = true)
 var found = await bitcoinassetjs.getClient().find('4b541e091d6af2f60d256dfca2685f95bf2d3a9b7995595115183d37b7c5bf90', true);
 console.log(found);
 /*
@@ -176,9 +111,6 @@ console.log(found);
 */
 
 ```
-
-
-
 
 ##### Update Asset
 
@@ -236,3 +168,159 @@ var update = await bitcoinassetjs.getClient().update({
 npm run build
 npm test
 ```
+
+
+-----------
+
+## Use Cases
+
+##### Art and Content Ownership
+Create unique art, ebooks, media and more.  Be able to transfer ownership of limited edition items to other users.
+
+##### Digital Titles
+Create any kind of item that benefits from ownership. You can build Crypto Kitties or any other kind of digital property. The only limitation is your imagination.
+
+## Design Goals
+1. A simple and flexible way to create, update, and transfer (non-fungible) digital assets on the blockchain.
+2. Use web existing standards, including the Bitcoin Data Protocol (`b://`), to maximize compatibility.
+3. Efficient state and ownership resolution: The time to resolve the current owner should be done in <= O(n) operations, where n is the total number of ownership transfers of the asset during it's lifespan. The time to resolve the current state of the asset should be no more than O(1) lookups
+
+## Technical Trade-offs
+
+##### Use OP_RETURN versus Script
+The benefit of using OP_RETURN conventions to define ownership is that it is not easy to accidentally "spend" an asset. UTXO based assets can be accidentally spent by wallets that are "unaware" that an asset exists and users can lose control of their assets.
+
+On the other hand it is extremely easy to enumerate all owned assets by an address by checking the UTXO set.
+
+The disadvantage OP_RETURN is that it is more difficult for services to know what are all the assets a given address owns a given point in time. We describe some methods below to be able to list all currently owned assets by an address below (bitdb queries).
+
+A design goal of this protocol is to be simple to implement and compatible with `b://`, therefore we opted for an OP_RETURN based solution for *Bitcoin Simple Asset Protocol 1.0*.
+
+##### Update asset data frequently, but transfer ownership occasionally
+It is expected that asset data will be updated very frequently, but ownership will be transferred infrequently.
+
+This protocol optimizes for resolving the current owner quickly and then performing a simple query to retrieve the latest version of the asset data.
+
+The reason for this is that most of the time we only care about *who is the current owner* and what is the *current state of the asset*.
+
+##### Prefer full ownership validation
+To make the protocol simple and easy to implement, the rule is that all implementors must always validate the full ownership chain of an asset starting from the txid of the asset and following the CREATE transaction through all TRANSFER commands.
+
+## Protocol Messages
+
+### Overview
+##### Create Asset
+Define the initial data and metadata of the asset.
+
+input1: Asset Creator
+output1: OP_RETURN
+```
+OP_RETURN
+  1CLcHRfBvtMVB2VNFjNXq7VfamY9FXfw7K
+  <Action = 0>
+  <Update Address>
+  <Asset Data URL>
+  [Asset Data Schema URL]
+  [Asset Data Schema Type]
+  [Asset Metadata URL]
+  [Asset Metadata Schema URL]
+  [Asset Metadata Schema Type]
+  [Asset Immutable Data URL]
+  [Asset Immutable Schema URL]
+  [Asset Immutable Schema Type]
+```
+
+#### Get the current state of an asset
+
+First resolve the current owner, and saving all of the Update Delegate Address along the way into an array.
+
+Starting with the most recent Update Delegate Address, query for an *Update* OP_RETURN and take the most recent transaction (highest block height) then use that as the current data.
+
+If no transaction found for current owner, then use the previous owner's update delegate and repeat the process until an Update is found.  If not updates are found, then the *Create* data is the current data.
+
+ Run-time: O(3 * N * k) = O(N)
+ Where
+ N = total number of owners
+ k = Number of transactions each owner did with same owner address
+
+It is recommended that a new owner perform an immediate *Update* operation to easy the burden of resolving the current state for all viewers of the data.
+
+##### Update Asset
+Update the data or metadata of the asset
+
+```
+OP_RETURN
+  1CLcHRfBvtMVB2VNFjNXq7VfamY9FXfw7K
+  <Action = 1>
+  <Txid of asset CREATE tx>
+  <Asset Data URL>
+  [Asset Data Schema URL]
+  [Asset Data Schema Type]
+  [Asset Metadata URL]
+  [Asset Metadata Schema URL]
+  [Asset Metadata Schema Type]
+```
+
+**Protocol Identifier: 1CLcHRfBvtMVB2VNFjNXq7VfamY9FXfw7K**
+Fixed unique identifier to indicate that this transaction is a *Bitcoin Simple Asset* transaction.
+
+**<Action>**
+Required. Set to `0` for the CREATE action.
+Specifies whether this is a CREATE, UPDATE, or TRANSFER action.
+```
+enum ActionType {
+    CREATE = 0,
+    UPDATE = 1,
+    TRANSFER = 2
+}
+```
+
+**<Update Address>**
+Required.
+The address that is allowed to update the asset
+
+**<Data URL>**
+Required.
+URL of initial state data. Can be any valid URL or Data-URL. It is recommended that a Data-URL is used or `b://` URL so that all initial state is stored on the blockchain.
+
+**[Data Schema URL]**
+Optional, but recommended.
+
+URL to a file that describes the types and meaning of the data.
+
+This can be a human-readable document that describes how to interpret the data located at <Data URL> or it can be a URL to a XML-Schema, JSON-Schema, or any other validation scheme that will validate the <Data URL>  contents.
+
+It is recommended that a Data-URL is used or `b://` URL so that the Data Description for the initial state data is stored on the blockchain.
+
+**[Data Schema Type]**
+Optional, but recommended.
+
+Specifies the type of validation to perform on the data at the [Data URL] according to the rules in [Data Description URL]
+
+To use JSON-Schema, set <Data URL> to point to a file with content-type `application/json` and <Data Schema Type> to `http://json-schema.org/schema#`
+
+To use XML-Schema, set <Data URL> to point to a file with content-type `application/xml` and <Data Schema Type> to `http://www.w3.org/2001/XMLSchema`.
+
+Any type of programmatic or human readable validation can be used.  If a human-readable text description is desired, then the <Data Description Validation Scheme> can be omitted and then rely on humans interpretting the content at [Data Description URL]
+
+### Get current asset data
+
+First resolve the current owner.
+
+Then perform a query to fetch the most recent *UPDATE* action created by the current owner.
+
+Todo:  How do we get the correct recent state even if the owner of the asset has exchanged hands back and forth with the same address? Note: Using the above logic, we will get stale state if some other intermediate owner changed the state
+
+# Future / Next Steps
+
+#### How to do Atomic Swap of 2 assets?
+TODO
+
+#### How can one asset "own" another asset?
+TODO
+
+#### How to transfer ownership
+
+- Allow atomic swaps between 2 or more bitcoin assets
+- Make it safe and secure for buyer and seller to send money to pay for an asset and have it atomically transact (or not go through at all)
+
