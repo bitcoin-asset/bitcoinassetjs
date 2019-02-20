@@ -2,10 +2,21 @@
 v1.0
 > Create and manage (non-fungible) digital assets on the Bitcoin blockchain.
 
-Bitcom Prefix: `1CLcHRfBvtMVB2VNFjNXq7VfamY9FXfw7K`
-Protocol Spec: https://github.com/bitcoin-asset/bitcoinassetjs
+- Bitcom Prefix: `1CLcHRfBvtMVB2VNFjNXq7VfamY9FXfw7K`
+- Protocol Spec: https://github.com/bitcoin-asset/bitcoinassetjs
 
 NOTE: This is beta and we need your help to define the spec for 'Ownership Transfers'.
+
+##### Art and Content Ownership
+Create unique art, ebooks, media and more.  Be able to transfer ownership of limited edition items to other users.
+
+##### Digital Titles
+Create any kind of item that benefits from ownership. You can build Crypto Kitties or any other kind of digital property. The only limitation is your imagination.
+
+## Design Goals
+1. A simple and flexible way to create, update, and transfer (non-fungible) digital assets on the blockchain.
+2. Use web existing standards, including the Bitcoin Data Protocol (`b://`), to maximize compatibility.
+3. Efficient state and ownership resolution: The time to resolve the current owner should be done in <= O(n) operations, where n is the total number of ownership transfers of the asset during it's lifespan. The time to resolve the current state of the asset should be no more than O(1) lookups
 
 ## Usage and Examples
 
@@ -172,18 +183,6 @@ npm test
 
 -----------
 
-## Use Cases
-
-##### Art and Content Ownership
-Create unique art, ebooks, media and more.  Be able to transfer ownership of limited edition items to other users.
-
-##### Digital Titles
-Create any kind of item that benefits from ownership. You can build Crypto Kitties or any other kind of digital property. The only limitation is your imagination.
-
-## Design Goals
-1. A simple and flexible way to create, update, and transfer (non-fungible) digital assets on the blockchain.
-2. Use web existing standards, including the Bitcoin Data Protocol (`b://`), to maximize compatibility.
-3. Efficient state and ownership resolution: The time to resolve the current owner should be done in <= O(n) operations, where n is the total number of ownership transfers of the asset during it's lifespan. The time to resolve the current state of the asset should be no more than O(1) lookups
 
 ## Technical Trade-offs
 
