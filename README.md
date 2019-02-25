@@ -7,6 +7,12 @@ v1.0
 
 NOTE: This is beta and we need your help to define the spec for 'Ownership Transfers'.
 
+## API Endpoints
+BitcoinFiles (BitcoinFiles.org) API support for Bitcoin Assets:
+[https://media.bitcoinfiles.org/asset/364aeca04e251328470bcebb7d3a877944c6c39b5250f17cbeece88af459fdfa](https://media.bitcoinfiles.org/asset/364aeca04e251328470bcebb7d3a877944c6c39b5250f17cbeece88af459fdfa)
+
+Query UTXOs and Wallet Balances with [BitIndex.network](https://www.bitindex.network)
+
 ## Use Cases
 
 ##### Art and Content Ownership
@@ -20,7 +26,7 @@ Create any kind of item that benefits from ownership. You can build Crypto Kitti
 2. Use web existing standards, including the Bitcoin Data Protocol (`b://`), to maximize compatibility.
 3. Efficient state and ownership resolution: The time to resolve the current owner should be done in <= O(n) operations, where n is the total number of ownership transfers of the asset during it's lifespan. The time to resolve the current state of the asset should be no more than O(1) lookups
 
-## Usage and Examples
+## Installation and Usage
 
 **Installation**
 ```sh
@@ -144,9 +150,6 @@ const result = await bitcoinassetjs.getClient().update({
     metadataUrl: undefined,
     metadataSchemaUrl: undefined,
     metadataSchemaType: undefined,
-    immutableUrl: undefined,
-    immutableSchemaUrl: undefined,
-    immutableSchemaType: undefined,
   },
   pay: {
     key: 'your private key'
