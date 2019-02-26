@@ -7,12 +7,6 @@ v1.0
 
 NOTE: This is beta and we need your help to define the spec for 'Ownership Transfers'.
 
-## API Endpoints
-[BitcoinFiles.org](https://www.bitcoinFiles.org) API support for Bitcoin Assets:
-[https://media.bitcoinfiles.org/asset/364aeca04e251328470bcebb7d3a877944c6c39b5250f17cbeece88af459fdfa](https://media.bitcoinfiles.org/asset/364aeca04e251328470bcebb7d3a877944c6c39b5250f17cbeece88af459fdfa)
-
-Query UTXOs and Wallet Balances with [BitIndex.network](https://www.bitindex.network)
-
 ## Use Cases
 
 ##### Art and Content Ownership
@@ -40,6 +34,62 @@ bower install bitcoinassetjs --save
 // Include the library
 var bitcoinassetjs = require('bitcoinassetjs');
 ```
+
+
+## API Endpoints
+
+Query UTXOs and Wallet Balances with [BitIndex.network](https://www.bitindex.network)
+
+[BitcoinFiles.org](https://www.bitcoinFiles.org) API support for Bitcoin Assets:
+[https://media.bitcoinfiles.org/3b38864d0d21fb547376da5d4e77410ce8350dc51658fd2f2a36655796ca96df](https://media.bitcoinfiles.org/3b38864d0d21fb547376da5d4e77410ce8350dc51658fd2f2a36655796ca96df)
+
+
+Sample respponse (Note the content-type of `application/bitcoinasset+json`)
+```
+{
+   "success":true,
+   "data":{
+      "assetImmutableData":{
+
+      },
+      "assetDataOriginal":{
+         "dataUrl":"b://cc34ca3b413f6a6ac265d04ecc02061eb036b27009ac4866371795e8448299d7",
+         "dataSchemaUrl":"b://cda5892c061afb50f09d99baa6fef40cae660cf87637faedb12ebdc52adfa167",
+         "dataSchemaType":"http://json-schema.org/draft-07/schema#"
+      },
+      "assetDataCurrent":{
+         "dataUrl":"b://27ffb6f4c23a54179e07b795c5441316e7b70ece416975a5aeb6af510b634c63",
+         "dataSchemaUrl":"b://cda5892c061afb50f09d99baa6fef40cae660cf87637faedb12ebdc52adfa167",
+         "dataSchemaType":"http://json-schema.org/draft-07/schema#",
+         "metadataUrl":"\u0000",
+         "metadataSchemaUrl":"\u0000",
+         "metadataSchemaType":"\u0000"
+      },
+      "blockInfoOriginal":{
+         "createdTime":1551154986,
+         "blockHeight":571299,
+         "txid":"3b38864d0d21fb547376da5d4e77410ce8350dc51658fd2f2a36655796ca96df"
+      },
+      "blockInfoCurrent":{
+         "createdTime":null,
+         "blockHeight":null,
+         "txid":"3fd203ec4a3c0644d477a68777c1c198d7d29f49b5f8eca0d4a4a9c3d8c1718f"
+      },
+      "assetOwnership":{
+         "originalOwnerAddress":"1EXhSbGFiEAZCE5eeBvUxT6cBVHhrpPWXz",
+         "currentOwnerAddress":"1EXhSbGFiEAZCE5eeBvUxT6cBVHhrpPWXz",
+         "ownershipHistoryRecords":[
+
+         ]
+      },
+      "updateAddress":"1EXhSbGFiEAZCE5eeBvUxT6cBVHhrpPWXz",
+      "txid":"3b38864d0d21fb547376da5d4e77410ce8350dc51658fd2f2a36655796ca96df"
+   }
+}
+
+```
+
+
 
 ##### Create Asset:
 
