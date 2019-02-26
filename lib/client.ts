@@ -177,7 +177,7 @@ export class Client {
                 headers: { key: this.options.bitdb_api_key }
             }
         ).then((response) => {
-            let tx = response.data.c.length ? response.data.c[0] : response.data.u.length ? response.data.u[0] : undefined;
+            let tx = response.data.u.length ? response.data.u[0] : response.data.c.length ? response.data.c[0] : undefined;
             if (!tx) {
                 return getResponse; // We have the latest version already!
             }

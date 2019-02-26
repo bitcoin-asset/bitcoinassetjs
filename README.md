@@ -8,7 +8,7 @@ v1.0
 NOTE: This is beta and we need your help to define the spec for 'Ownership Transfers'.
 
 ## API Endpoints
-BitcoinFiles (BitcoinFiles.org) API support for Bitcoin Assets:
+[BitcoinFiles.org](https://www.bitcoinFiles.org) API support for Bitcoin Assets:
 [https://media.bitcoinfiles.org/asset/364aeca04e251328470bcebb7d3a877944c6c39b5250f17cbeece88af459fdfa](https://media.bitcoinfiles.org/asset/364aeca04e251328470bcebb7d3a877944c6c39b5250f17cbeece88af459fdfa)
 
 Query UTXOs and Wallet Balances with [BitIndex.network](https://www.bitindex.network)
