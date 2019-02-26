@@ -35,16 +35,18 @@ bower install bitcoinassetjs --save
 var bitcoinassetjs = require('bitcoinassetjs');
 ```
 
+## API Endpoints and Form Asset Builder
 
-## API Endpoints
+**Query UTXOs and Wallet Balances with the [BitIndex API](https://www.bitindex.network)**
 
-Query UTXOs and Wallet Balances with [BitIndex.network](https://www.bitindex.network)
 
-[BitcoinFiles.org](https://www.bitcoinFiles.org) API support for Bitcoin Assets:
+**Create Bitcoin Asset at [BitcoinFiles.org/new-asset](https://www.bitcoinFiles.org/new-asset)**
+
+**Retrieve Bitcoin Asset with the [BitcoinFiles API](https://www.bitcoinFiles.org)**
+*Example:*
 [https://media.bitcoinfiles.org/3b38864d0d21fb547376da5d4e77410ce8350dc51658fd2f2a36655796ca96df](https://media.bitcoinfiles.org/3b38864d0d21fb547376da5d4e77410ce8350dc51658fd2f2a36655796ca96df)
 
-
-Sample respponse (Note the content-type of `application/bitcoinasset+json`)
+Sample response (Note the content-type of `application/bitcoinasset+json`)
 ```
 {
    "success":true,
