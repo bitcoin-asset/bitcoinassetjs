@@ -284,6 +284,11 @@ OP_RETURN
   [Asset Immutable Data URL]
   [Asset Immutable Schema URL]
   [Asset Immutable Schema Type]
+  [Tag 1]
+  [Tag 2]
+  [Tag 3]
+  [Tag 4]
+  [Tag 5]
 ```
 
 #### Get the current state of an asset
@@ -315,6 +320,11 @@ OP_RETURN
   [Asset Metadata URL]
   [Asset Metadata Schema URL]
   [Asset Metadata Schema Type]
+  [Tag 1]
+  [Tag 2]
+  [Tag 3]
+  [Tag 4]
+  [Tag 5]
 ```
 
 **Protocol Identifier: 1CLcHRfBvtMVB2VNFjNXq7VfamY9FXfw7K**
